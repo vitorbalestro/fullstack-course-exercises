@@ -6,9 +6,7 @@ const DisplayCountryInfo = ({ country }) => {
 
     const lat = country.capitalInfo.latlng[0].toString()
     const lng = country.capitalInfo.latlng[1].toString()
-    const [state, setState] = useState(false)
-
-    useEffect(()=>setState(true),[])
+   
    
     const [weatherInfo, setWeatherInfo] = useState(null)
     let temperature
@@ -18,7 +16,6 @@ const DisplayCountryInfo = ({ country }) => {
 
     useEffect(() => {
             getWeatherReport(lat,lng).then(response=>setWeatherInfo(response))
-            setState(false)
         },[lat,lng])
         
    
@@ -27,8 +24,7 @@ const DisplayCountryInfo = ({ country }) => {
         wind = (weatherInfo.wind.speed).toFixed(2)
         icon = (weatherInfo.weather[0].icon)
         imgUrl = ` http://openweathermap.org/img/wn/${icon}@2x.png`
-        console.log(state)
-        console.log(icon)
+   
     }
   
     const languagesMap = country.languages
