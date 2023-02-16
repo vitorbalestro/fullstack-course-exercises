@@ -32,13 +32,18 @@ const App = () => {
         if(window.confirm(`${newName} is already added to the phonebook. Replace the old number with a new one?`)){
           
           personService 
-            .update(person.id,personObject).then(returnedPerson =>
-              setPersons(persons.map(person => person.id === returnedPerson.id ? returnedPerson : person)))
+            .update(person.id,personObject).then(returnedPerson => {
+              setPersons(persons.map(person => person.id === returnedPerson.id ? returnedPerson : person))
+              setNewName('')
+              setNewNumber('')
+            })
             .catch(error => {
               console.log(error)
               setPersons(persons.filter(entry => entry.id !== id))
               setNotification(`Information of ${personObject.name} has already been removed from server`)
               setNotificationType('error')
+              setNewName('')
+              setNewNumber('')
               setTimeout(()=>{
                 setNotification(null)
                 setNotificationType('')
@@ -46,7 +51,7 @@ const App = () => {
             })
           return
         }
-        
+        return
       }
     }
     personService
